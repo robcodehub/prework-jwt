@@ -8,3 +8,8 @@ app.get('/api/sessions', (req, res, next)=> {
     next({ status: 401 })
   }
 });
+
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(err.status || 500).send({error: err});
+});
