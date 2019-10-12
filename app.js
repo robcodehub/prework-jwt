@@ -13,6 +13,12 @@ app.get('/api/sessions', (req, res, next)=> {
     next({ status: 401 })
 });
 
+app.delete('/api/sessions', (req, res, next) => {
+  req.session.destroy();
+  res.sendStatus(204)
+})
+
+
 app.post('/api/sessions', (req, res, next) => {
   User.authentication(req.body)
   .then(user => {

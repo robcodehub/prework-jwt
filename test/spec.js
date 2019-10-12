@@ -49,7 +49,25 @@ describe('Authentication', () => {
           });
         });
 
+        describe('DELETE /api/sessions', ()=> {
+          let cookie;
+            beforeEach(async()=> {
+              const response = await app.post('/api/sessions')
+              .send({username: 'larry', password: 'LARRY'});
+              cookie = response.headers['set-cookie']
+            });
 
+            it('returns a 204', async() => {
+              let response =  await app.delete('/api/sessions')
+              .set('cookie', cookie)
+
+              expect(response.status).to.equal(204)
+
+              response = await app.get('/api/sessions')
+                .set('cookie', cookie)
+              expect(response.status).to.equal(401);
+            });
+          });
 
   });
 });

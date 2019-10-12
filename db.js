@@ -24,7 +24,7 @@ User.authenticate = async function(credentials) {
   throw ({ status: 401 })
 }
 
-const syncAndSeed = () => {
+const syncAndSeed = async() => {
   await conn.sync({ force: true});
   const usernames = ['moe', 'lucy', 'larry', 'curly']
 
@@ -38,7 +38,7 @@ const syncAndSeed = () => {
 };
 
 module.exports = {
-  syncAndSees,
+  syncAndSeed,
   models: {
     User
   }
