@@ -4,7 +4,7 @@
   "description": "jwt-prework",
   "main": "index.js",
   "scripts": {
-    "test:dev": "DATABASE_URL=postgres://localhost/authtestdb mocha --watch"
+    "test:dev": "SECRET=FOO DATABASE_URL=postgres://localhost/authtestdb mocha --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "pg": "^7.12.1",
     "sequelize": "^5.19.6"
   }

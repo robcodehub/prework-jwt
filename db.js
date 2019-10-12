@@ -11,7 +11,18 @@ const User = conn.define('user', {
   },
   username: STRING,
   password: STRING,
-})
+});
+
+User.authenticate = async function(credentials) {
+  const { username, password } = credentials;
+  const user = await this.findOne({
+    where: { username, password }
+  });
+  if(user) {
+    return user;
+  }
+  throw ({ status: 401 })
+}
 
 const syncAndSeed = () => {
   await conn.sync({ force: true});
@@ -25,3 +36,10 @@ const syncAndSeed = () => {
     curly
   }
 };
+
+module.exports = {
+  syncAndSees,
+  models: {
+    User
+  }
+}

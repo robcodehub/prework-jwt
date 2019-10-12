@@ -12,14 +12,45 @@ describe('Authentication', () => {
         expect(response.status).to.equal(401);
       });
     });
+
     describe('When logged in', ()=> {
+      let cookie;
+        beforeEach(async()=> {
+          const response = await app.post('/api/sessions')
+          .send({username: 'larry', password: 'LARRY'});
+          cookie = response.headers['set-cookie']
+        });
+
         it('returns a 200 with the user', async() => {
           console.log(seed.moe.id)
-          const response = await app.get('/api/sessions');
+          const response = await app.get('/api/sessions')
+            .set('cookie', cookie)
           expect(response.status).to.equal(200);
+          expect(response.body.username).to.equal('larry')
         });
       });
 
+    describe('POST /api/sessions', ()=> {
+        it('with correct credentials', () => {
+          it('returns a 204 with a cookie', async() => {
+            const response = await app.post('/api/sessions')
+            .send({username: 'larry', password: 'LARRY'});
+            expect(response.status).to.equal(204);
+            console.log(response.headers)
+            expect(response.headers['set-cookie']).to.be.ok;
+          });
+        });
+
+        it('with incorrect credentials', () => {
+          it('returns a 401', async() => {
+            const response = await app.post('/api/sessions')
+            .send({username: 'leerry', password: 'LARRY'});
+            expect(response.status).to.equal(401);
+          });
+        });
+
+
 
   });
+});
 });
