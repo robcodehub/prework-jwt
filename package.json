@@ -19,6 +19,10 @@
   "homepage": "https://github.com/robcodehub/prework-jwt#readme",
   "devDependencies": {
     "chat": "^0.6.0",
-    "mocha": "^6.2.1"
+    "mocha": "^6.2.1",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
